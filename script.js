@@ -1,94 +1,50 @@
-const resultElement = document.getElementById("result");
-const lengthElement = document.getElementById("length");
-const uppercaseElement = document.getElementById("uppercase");
-const lowercaseElement = document.getElementById("lowercase");
-const numbersElement = document.getElementById("numbers");
-const symbolsElement = document.getElementById("symbols");
-const generateElement = document.getElementById("generate");
-const clipboardElement = document.getElementById("clipboard");
-
-// Random functions
-// fromCharCode: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/fromCharCode
-// ASCII codes: https://www.w3schools.com/charsets/ref_html_ascii.asp
-const getRandomLower = () =>
-  String.fromCharCode(Math.floor(Math.random() * 26) + 97);
-
-const getRandomUpper = () =>
-  String.fromCharCode(Math.floor(Math.random() * 26) + 65);
-
-const getRandomNumber = () =>
-  String.fromCharCode(Math.floor(Math.random() * 10) + 48);
-
-const getRandomSymbol = () => {
-  const symbols = "!@#$%^&*(){}[]=<>/,.";
-  return symbols[Math.floor(Math.random() * symbols.length)];
-};
+const refreshButton = document.querySelector(".refresh-btn");
+const containerBody = document.querySelector(".container");
+const maxPaletteBoxes = 204;
 
 
-//use an object to call all the functions and keep them with an associated Object name
-const randomFunctions = {
-  lower: getRandomLower,
-  upper: getRandomUpper,
-  number: getRandomNumber,
-  symbol: getRandomSymbol,
-};
-
-//create a notification too
-const createNotification = (message) => {
-  const notif = document.createElement("div");
-  notif.classList.add("toast");
-  notif.innerText = message;
-  document.body.appendChild(notif);
-  setTimeout(() => notif.remove(), 3000);
-};
 
 
-clipboardElement.addEventListener("click", () => {
-  const password = resultElement.innerText;
-  if (!password) return;
-  const textarea = document.createElement("textarea");
-  textarea.value = password;
-  document.body.appendChild(textarea);
-  textarea.select();
-  document.execCommand("copy");
-  textarea.remove();
-  createNotification("Password copied to clipboard!");
-});
+const generatePallete = () =>{
+// had a bug of adding more colors to the container before so lets fix that bug here
+containerBody.innerHTML = ""; //clear the container and make the palletes clean and new
 
-//generate a click handler for the button
-generateElement.addEventListener("click", () => {
-  const length = +lengthElement.value;
-  const hasLower = lowercaseElement.checked;
-  const hasUpper = uppercaseElement.checked;
-  const hasNumber = numbersElement.checked;
-  const hasSymbol = symbolsElement.checked;
-  resultElement.innerText = generatePassword(
-    hasLower,
-    hasUpper,
-    hasNumber,
-    hasSymbol,
-    length
-  );
-});
+    for(let i=0;i < maxPaletteBoxes;  i++){
+        //generate a random hex color code belwo
+        let randomHexCode = Math.floor(Math.random() * 0xffffff).toString(16);
+        randomHexCode = `#${randomHexCode.padStart(6,"0")}`;
 
-//generate the password below
+        //throw the code out into a new li element and insert to the container
+        const color = document.createElement("li");
+        color.classList.add("color");
+        color.innerHTML = `<div class="rect-box" style="background: ${randomHexCode}"></div>
+        <span class="hex-value">${randomHexCode}</span>`;
 
-const generatePassword = (lower, upper, number, symbol, length) => {
-  // let username = prompt("Enter your name")
-  // console.log(username);
-  let generatedPassword = "";
-  const typesCount = lower + upper + number + symbol;
-  const typesArr = [{ lower }, { upper }, { number }, { symbol }].filter(
-    (item) => Object.values(item)[0]
-  );
-  if (typesCount === 0) return "";
-  for (let i = 0; i < length; i += typesCount) {
-    typesArr.forEach((type) => {
-      const funcName = Object.keys(type)[0];
-      generatedPassword += randomFunctions[funcName]();
-      // generatedPassword += username.length -5;
-    });
-  }
-  const finalPassword = generatedPassword.slice(0, length);
-  return finalPassword;
-};
+
+
+        // add a copy event to the colors
+        color.addEventListener("click",() => copyColorCode(color,randomHexCode));
+        containerBody.appendChild(color);
+
+    }
+}
+
+generatePallete();
+
+const copyColorCode =  (element, hexValue) => {
+    colorElem = element.querySelector(".hex-value");
+    // coopying the haxvalue to clipboard,updatee text to copied and also change the ext to 
+    // roriginal hex code after 3 seconds
+    navigator.clipboard.writeText(hexValue).then(()=>{
+        colorElem.innerHTML = "Copied";
+        setTimeout(()=> colorElem.innerHTML = hexValue,3000)
+    }).catch(() => alert("Failed to copy the color code")); //throw error if this doesnt work
+    console.log("REACHED THEM",hexValue )
+    }
+
+
+
+// add a click listener to the button
+refreshButton.addEventListener("click",generatePallete);
+// generate a new pallete every 2 minutes
+setTimeout(generatePallete,200000);

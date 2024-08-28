@@ -1,108 +1,204 @@
-/*Using the Poppins font in this project
-I have it installed on  my computer already,you can install it or try using a more suitable font
-*/
-
+/* i use the Puirsa font on ly Linux PC,thats why it looks so coool,you should try it once  */
 *{
-  box-sizing: border-box;
-  color: black;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family:Purisa, sans-serif;
+}
+::-webkit-scrollbar{
+    background: #272727;
+   width:12px;
+}
+::scrollbar
+::-webkit-scrollbar-thumb{
+    background: #808080;
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover{
+    background-color: #666;
 }
 body{
-  color: black;
-  background-color:#272745;
-  font-family: "Poppins", sans-serif;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  overflow: hidden;
-  padding: 10px;
-  margin: 0;
+    background: rgb(61, 37, 63);
+    padding: 10px 20px;
 }
-
-h2{
-  margin: 10px 0 20px;
-  text-align: center;
+.header{
+    color: white;
+    width: 100%;
+    height:60px ;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
-
+.header >*{
+    font-size: 1.6em;
+    font-family: cursive;
+    padding: 10px;
+}
+.header > nav > h2{
+    border-bottom: 2px solid white;
+}
 .container{
-  background-color: #fff;
-  box-shadow: 0px 2px 10px rgba(255, 255, 255, 0.2);
-  padding: 20px;
-  width: 350px;
-  max-width: 100%;
-  color: black;
-  border-radius: 10px;
+    margin: 12px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 10px;
+}
+.container .color{
+background: #fff;
+margin: 13px;
+text-align: center;
+cursor: pointer;
+padding: 7px;
+border-radius: 6px;
+list-style: none;
+box-shadow: 0 10px 20px rgba(32, 44, 87, 0.8);
+transition: transform 0.3s ease;
+}
+.container .rect-box{
+    width: 185px;
+    height: 188px;
+    border-radius: 5px;
+    background: #f0f;
+}
+.color .hex-value{
+    font-size: 1.15rem;
+    font-weight: 600;
+    display: block;
+    margin: 12px 0 8px;
+    color: #2b122c;
+    text-transform: uppercase;
+}
+.container .color:active{
+    transform: scale(0.96);
+}
+.color:hover .rect-box{
+    filter: brightness(106%);
+}
+.refresh-btn{
+    outline: none;
+    padding: 12px 20px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #fff;
+    background: #cd26cd;
+    border: 2px solid peru;
+    cursor: pointer;
+    border-radius: 5px;
+    position: fixed;
+    left: 50%;
+    bottom: 0px;
+    transform: translate(-50%,-50%);
+}
+.refresh-btn:hover{
+    background: #2b122c;
+    /* transform: scale(0.91); */
 }
 
-.result-container{
-  background-color: rgb(173 173 173 / 40%);
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  position: relative;
-  font-size: 18px;
-  letter-spacing: 1px;
-  padding: 12px 10px; /*50px can work sometimes and can prove to have issues in some cases */
-  height: 50px;
-  width: 100%;
-  border-radius: 5px;
+
+/* responsive screen size */
+@media screen and (max-width:710px) {
+    .container{
+        margin: 8px;
+    }
+    .container .color{
+        padding: 5px;
+        margin: 8px;
+    }
+    .color .rect-box{
+        width: 145px;
+        height: 145px;
+    }
+    .color .hex-value{
+        font-size: 1.05rem;
+    }
+    .refresh-btn{
+        padding:10px;
+        font-size: 14px;
+        border: none;
+        left: 50%;
+        bottom: 0px;
+    }
+  
+    }
+
+@media screen and (max-width:510px) {
+.container{
+    margin: 10px;
 }
-.result-container #result{
-  word-wrap: break-word;
-  max-width: calc(100% - 40px);
+.container .color{
+    padding: 5px;
+    margin: 8px;
+}
+.color .rect-box{
+    width: 145px;
+    height: 145px;
+}
+.color .hex-value{
+    font-size: 1.05rem;
+}
+.refresh-btn{
+    padding:10px;
+    font-size: 14px;
+    border: none;
+    left: 50%;
+    bottom: 0px;
+}
+.refresh-btn::before{
+    content: icon('fa-palette');
+}
 }
 
-.result-container .btn{
-  position: absolute;
-  top: 5px;
-  right: 5px;
-  width: 40px;
-  height: 40px;
-  font-size: 20px;
-}
-.btn {
-  cursor: pointer;background-color:#1c327f;
-  color: white !important;
-  border-radius: 2px;
-  border: none;
-  font-size: 18px;
-  padding: 8px 12px;
-  cursor: pointer;
-
-}
-.i{
-  cursor: pointer;
-  background-color:#3d3d3d;
-  color: white !important;
-  border-radius: 2px;
-  border: none;
-  font-size: 18px;
-  padding: 8px 12px;
-}
-.fa{
-  color: white;
-}
-.btn-large{
-  display: block;
-  width: 100%;
-}
-.settings{
-  color: white;
-}
-.setting{
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 15px 0;
-}
-.toast{
-  position: fixed;
-  bottom: 10px;
-  right: 10px;
-  background-color: #fff;
-  color: red;
-  border-radius: 5px;
-  padding: 1rem 2rem;
-  margin: 0.5rem;
-}
+/* less than 400px screens like my device currently */
+@media screen and (max-width:420px) {
+    .container{
+        margin: 2px;
+    }
+    .container .color{
+        padding: 3px;
+        margin: 3px;
+    }
+    .color .rect-box{
+        width: 145px;
+        height: 145px;
+    }
+    .color .hex-value{
+        font-size: 1.05rem;
+    }
+    .refresh-btn{
+        padding:10px;
+        font-size: 14px;
+        left: 50%;
+        bottom: 0px;
+        border: none;
+    }
+    .refresh-btn::before{
+        content: icon('fa-palette');
+    }
+    }
+    @media screen and (max-width:390px) {
+        .container{
+            margin: 2px;
+        }
+        .container .color{
+            padding: 7px;
+            margin: 6px;
+        }
+        .color .rect-box{
+            width: 130px;
+            height: 135px;
+        }
+        .color .hex-value{
+            font-size: 1.05rem;
+        }
+        .refresh-btn{
+            padding:10px;
+            font-size: 14px;
+            left: 50%;
+            bottom: 0px;
+            border: none;
+        }
+        .refresh-btn::before{
+            content: icon('fa-palette');
+        }
+        }

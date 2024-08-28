@@ -1,0 +1,108 @@
+/*Using the Poppins font in this project
+I have it installed on  my computer already,you can install it or try using a more suitable font
+*/
+
+*{
+  box-sizing: border-box;
+  color: black;
+}
+body{
+  color: black;
+  background-color:#272745;
+  font-family: "Poppins", sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  overflow: hidden;
+  padding: 10px;
+  margin: 0;
+}
+
+h2{
+  margin: 10px 0 20px;
+  text-align: center;
+}
+
+.container{
+  background-color: #fff;
+  box-shadow: 0px 2px 10px rgba(255, 255, 255, 0.2);
+  padding: 20px;
+  width: 350px;
+  max-width: 100%;
+  color: black;
+  border-radius: 10px;
+}
+
+.result-container{
+  background-color: rgb(173 173 173 / 40%);
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  position: relative;
+  font-size: 18px;
+  letter-spacing: 1px;
+  padding: 12px 10px; /*50px can work sometimes and can prove to have issues in some cases */
+  height: 50px;
+  width: 100%;
+  border-radius: 5px;
+}
+.result-container #result{
+  word-wrap: break-word;
+  max-width: calc(100% - 40px);
+}
+
+.result-container .btn{
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  width: 40px;
+  height: 40px;
+  font-size: 20px;
+}
+.btn {
+  cursor: pointer;background-color:#1c327f;
+  color: white !important;
+  border-radius: 2px;
+  border: none;
+  font-size: 18px;
+  padding: 8px 12px;
+  cursor: pointer;
+
+}
+.i{
+  cursor: pointer;
+  background-color:#3d3d3d;
+  color: white !important;
+  border-radius: 2px;
+  border: none;
+  font-size: 18px;
+  padding: 8px 12px;
+}
+.fa{
+  color: white;
+}
+.btn-large{
+  display: block;
+  width: 100%;
+}
+.settings{
+  color: white;
+}
+.setting{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 15px 0;
+}
+.toast{
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  background-color: #fff;
+  color: red;
+  border-radius: 5px;
+  padding: 1rem 2rem;
+  margin: 0.5rem;
+}
